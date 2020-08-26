@@ -89,3 +89,7 @@ variable "tenancy" {
   default     = "default"
 }
 
+variable "security_groups" {
+  description = "Array of security group IDs to attach to the instance"
+  default = []
+}

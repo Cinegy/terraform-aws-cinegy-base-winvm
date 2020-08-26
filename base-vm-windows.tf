@@ -62,26 +62,6 @@ resource "aws_volume_attachment" "data_volume" {
   instance_id = aws_instance.vm.id
 }
 
-/*
-resource "aws_network_interface_sg_attachment" "remote_access" {
-  count                = var.allow_open_rdp_access == true ? 1 : 0
-  security_group_id    = aws_security_group.remote_access.id
-  network_interface_id = aws_instance.vm.primary_network_interface_id
-}
-
-resource "aws_network_interface_sg_attachment" "open_access" {
-  count                = var.allow_all_internal_traffic == true ? 1 : 0
-  security_group_id    = aws_security_group.open_internal.id
-  network_interface_id = aws_instance.vm.primary_network_interface_id
-}
-
-resource "aws_network_interface_sg_attachment" "open_media_port_access" {
-  count                = var.allow_media_udp_ports_externally == true ? 1 : 0
-  security_group_id    = aws_security_group.remote_access_udp_6000_6100.id
-  network_interface_id = aws_instance.vm.primary_network_interface_id
-}
-*/
-
 resource "aws_instance" "vm" {
   ami                  = data.aws_ami.latest_windows.id
   key_name             = "terraform-key-${var.app_name}-${var.environment_name}"
@@ -99,6 +79,8 @@ resource "aws_instance" "vm" {
   root_block_device {
     volume_size = var.root_volume_size
   }
+
+  vpc_security_group_ids = var.security_groups
 
   tags = {
     Name      = "${var.host_description} - ${upper(var.environment_name)}"
