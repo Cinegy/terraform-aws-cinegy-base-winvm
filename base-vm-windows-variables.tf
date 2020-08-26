@@ -6,6 +6,10 @@ variable "instance_profile_name" {
   description = "Name of the EC2 instance profile to associate with the VM"
 }
 
+variable "directory_service_default_doc_name" {
+  description = "Name of the Directory Service SSM document to use for automatic domain integration"
+}
+
 variable "amazon_owned_ami_name" {
   description = "An AMI name (wildcards supported) for selecting the base image for the VM"
   default     = "Windows_Server-2016-English-Full-Base*"

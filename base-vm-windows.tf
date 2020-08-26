@@ -36,7 +36,7 @@ data "aws_ami" "latest_windows" {
 }
 
 resource "aws_ssm_association" "domain_ssm" {
-  name        = aws_ssm_document.directory_service_default_doc.name
+  name        = var.directory_service_default_doc_name
   instance_id = aws_instance.vm.id
 }
 
