@@ -92,7 +92,7 @@ resource "aws_instance" "vm" {
   }
 
   lifecycle {
-    ignore_changes = [user_data]
+    ignore_changes = [user_data,ami]
   }
 }
 

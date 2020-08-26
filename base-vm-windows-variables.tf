@@ -57,7 +57,7 @@ variable "attach_data_volume" {
 
 variable "data_volume_size" {
   description = "Size of any secondary data volume (default 30GB)"
-  default     = "30"
+  default     = 30
 }
 
 variable "allow_open_rdp_access" {
