@@ -15,13 +15,13 @@ data "template_file" "userdatascript" {
   }
 }
 
-data "aws_ami" "latest_windows" {
+data "aws_ami" "latest_ami" {
   most_recent = true
-  owners      = ["801119661308"] #amazon
+  owners      = var.ami_owners
 
   filter {
     name   = "name"
-    values = [var.amazon_owned_ami_name]
+    values = [var.ami_name]
   }
 
   filter {
@@ -63,7 +63,7 @@ resource "aws_volume_attachment" "data_volume" {
 }
 
 resource "aws_instance" "vm" {
-  ami                  = data.aws_ami.latest_windows.id
+  ami                  = data.aws_ami.latest_ami.id
   key_name             = "terraform-key-${var.app_name}-${var.environment_name}"
   instance_type        = var.instance_type
   iam_instance_profile = var.instance_profile_name

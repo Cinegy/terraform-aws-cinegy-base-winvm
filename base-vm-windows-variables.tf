@@ -10,7 +10,12 @@ variable "directory_service_default_doc_name" {
   description = "Name of the Directory Service SSM document to use for automatic domain integration"
 }
 
-variable "amazon_owned_ami_name" {
+variable "ami_owners" {
+  description = "IDs or aliases of the owning organization used when searching AMIs"
+  default = [ "self", "amazon", "aws-marketplace" ] 
+}
+
+variable "ami_name" {
   description = "An AMI name (wildcards supported) for selecting the base image for the VM"
   default     = "Windows_Server-2016-English-Full-Base*"
 }
