@@ -6,3 +6,7 @@ provider "aws" {
 provider "tls" {
   version = "~> 2.2"
 }
+
+provider "template" {
+  version = "~> 2.1.2"
+}

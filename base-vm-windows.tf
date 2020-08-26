@@ -1,6 +1,6 @@
 
 data "aws_subnet_ids" "filtered_subnets" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = var.vpc_id
 
   tags = {
     Tier = var.aws_subnet_tier
@@ -11,7 +11,7 @@ data "aws_subnet_ids" "filtered_subnets" {
 data "template_file" "userdatascript" {
   template = file("${path.module}/conf/userdatascriptbase.ps1")
   vars = {
-    injected_content         = var.user_data_script_extension
+    injected_content = var.user_data_script_extension
   }
 }
 
@@ -48,7 +48,7 @@ resource "aws_ebs_volume" "data_volume" {
   tags = {
     Name      = "${var.host_name_prefix}-${upper(var.environment_name)}-DATAVOL"
     Env       = var.environment_name
-    App = "${var.app_name}"
+    App       = "${var.app_name}"
     CUSTOMER  = var.customer_tag
     Terraform = true
   }
@@ -62,6 +62,7 @@ resource "aws_volume_attachment" "data_volume" {
   instance_id = aws_instance.vm.id
 }
 
+/*
 resource "aws_network_interface_sg_attachment" "remote_access" {
   count                = var.allow_open_rdp_access == true ? 1 : 0
   security_group_id    = aws_security_group.remote_access.id
@@ -79,12 +80,13 @@ resource "aws_network_interface_sg_attachment" "open_media_port_access" {
   security_group_id    = aws_security_group.remote_access_udp_6000_6100.id
   network_interface_id = aws_instance.vm.primary_network_interface_id
 }
+*/
 
 resource "aws_instance" "vm" {
   ami                  = data.aws_ami.latest_windows.id
   key_name             = "terraform-key-${var.app_name}-${var.environment_name}"
   instance_type        = var.instance_type
-  iam_instance_profile = aws_iam_instance_profile.instance_profile_default_ec2_instance.name
+  iam_instance_profile = var.instance_profile_name
   subnet_id            = element(tolist(data.aws_subnet_ids.filtered_subnets.ids),0)
   get_password_data    = true
   tenancy              = var.tenancy

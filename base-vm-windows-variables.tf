@@ -1,3 +1,10 @@
+variable "vpc_id" {
+  description = "ID of VPC to target for deployment"
+}
+
+variable "instance_profile_name" {
+  description = "Name of the EC2 instance profile to associate with the VM"
+}
 
 variable "amazon_owned_ami_name" {
   description = "An AMI name (wildcards supported) for selecting the base image for the VM"
