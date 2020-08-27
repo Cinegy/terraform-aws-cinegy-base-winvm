@@ -39,6 +39,11 @@ variable "host_name_prefix" {
   default     = "WINDOWS1A"
 }
 
+variable "aws_subnet_az" {
+  description = "Availability Zone for deployment (A/B/...)"
+  default     = "A"
+}
+
 variable "host_description" {
   description = "Prefix description to use in Name metadata tag (e.g. Cinegy Identity Service (CIS) 01)"
   default     = "Default Windows VM"
