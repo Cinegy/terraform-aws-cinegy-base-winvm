@@ -10,6 +10,10 @@ variable "directory_service_default_doc_name" {
   description = "Name of the Directory Service SSM document to use for automatic domain integration"
 }
 
+variable "instance_subnet" {
+  description = "Target subnet for attachment of instance"
+}
+
 variable "ami_owners" {
   description = "IDs or aliases of the owning organization used when searching AMIs"
   default = [ "self", "amazon", "aws-marketplace" ] 
@@ -28,16 +32,6 @@ variable "root_volume_size" {
 variable "instance_type" {
   description = "Required instance type for server"
   default     = "t3.small"
-}
-
-variable "aws_subnet_tier" {
-  description = "Tier of subnet for deployment (Private / Public)"
-  default     = "Private"
-}
-
-variable "aws_subnet_az" {
-  description = "Availability Zone for deployment (A/B/...)"
-  default     = "A"
 }
 
 variable "host_name_prefix" {

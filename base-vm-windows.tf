@@ -1,4 +1,4 @@
-
+/*
 data "aws_subnet_ids" "filtered_subnets" {
   vpc_id = var.vpc_id
 
@@ -7,7 +7,7 @@ data "aws_subnet_ids" "filtered_subnets" {
     AZ   = var.aws_subnet_az
   }
 }
-
+*/
 data "template_file" "userdatascript" {
   template = file("${path.module}/conf/userdatascriptbase.ps1")
   vars = {
@@ -67,7 +67,7 @@ resource "aws_instance" "vm" {
   key_name             = "terraform-key-${var.app_name}-${var.environment_name}"
   instance_type        = var.instance_type
   iam_instance_profile = var.instance_profile_name
-  subnet_id            = element(tolist(data.aws_subnet_ids.filtered_subnets.ids),0)
+  subnet_id            = var.instance_subnet //element(tolist(data.aws_subnet_ids.filtered_subnets.ids),0)
   get_password_data    = true
   tenancy              = var.tenancy
   user_data = format(
