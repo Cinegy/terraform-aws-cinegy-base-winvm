@@ -2,11 +2,11 @@ variable "vpc_id" {
   description = "ID of VPC to target for deployment"
 }
 
-variable "instance_profile_name" {
+variable "instance_profile" {
   description = "Name of the EC2 instance profile to associate with the VM"
 }
 
-variable "directory_service_default_doc_name" {
+variable "ad_join_doc_name" {
   description = "Name of the Directory Service SSM document to use for automatic domain integration"
 }
 
