@@ -16,8 +16,41 @@ function RenameHost(){
     return
 }
 
-function InstallPowershellModules(){
-    
+function Install-CinegyPowershellModules(){
+	#define Cinegy Install Modules version
+	$installModulesVersion = "0.0.1"
+    $rootPath = $env:TEMP 
+
+	#download binaries and unzip
+	$client = New-Object System.Net.WebClient
+	$modulePackageUrl = "https://github.com/Cinegy/powershell-install-module/releases/download/v$installModulesVersion/cinegy-powershell-installmodule-v$installModulesVersion.zip"
+	$downloadPath = "$rootPath\cinegy-powershell-installmodule.zip"
+	Write-Output "Downloading Cinegy Installation Powershell Module from $modulePackageUrl to $downloadPath"
+    	
+	$client = new-object System.Net.WebClient
+	$client.DownloadFile($modulePackageUrl, $downloadPath)
+	
+	$moduleInstallPath = "C:\Program Files\Cinegy\Installation Powershell Module"
+
+	New-Item -Path $moduleInstallPath -ItemType Directory -ErrorAction SilentlyContinue
+	[System.Environment]::SetEnvironmentVariable('CINEGY_INSTALL_MODULE_PATH', $moduleInstallPath, [System.EnvironmentVariableTarget]::Machine)
+	$Env:CINEGY_INSTALL_MODULE_PATH = $moduleInstallPath
+
+	Write-Output "Unpacking Cinegy Installation Powershell Module to $moduleInstallPath"
+	
+	Write-Host "Expanding bundle $downloadPath"
+	Expand-Archive -Path $downloadPath -DestinationPath $moduleInstallPath
+	
+	#import the module, ready for use
+	Import-Module $Env:CINEGY_INSTALL_MODULE_PATH\Cinegy.InstallModule.dll	
+}
+
+function Install-DefaultPackages(){
+	Install-Product -PackageName Thirdparty-VCRuntimes-v150 -VersionTag prod
+	Install-Product -PackageName Thirdparty-7Zip-Stable -VersionTag prod
+	Install-Product -PackageName Thirdparty-MetricBeat-v6.x -VersionTag dev
+	Install-Product -PackageName Thirdparty-NotepadPlusPlus-v7.x -VersionTag prod
+	Install-Product -PackageName Thirdparty-Firefox-Stable -VersionTag prod
 }
 
 function Get-LocalInstanceTagValue([string] $tagName)
