@@ -136,7 +136,8 @@ function Get-AwsLicense($UseTaggedHostname = $false)
   try{   	  
 	  Write-Output "Getting license file from server URL: $licenseserverurl"
       $headers = @{'accept'="application/xml";'content-type'="application/json"}
-      $signedMetadata = Get-AwsSignedMetadata 
+	  $signedMetadata = Get-AwsSignedMetadata 
+	  Add-Type -AssemblyName System.Web
 	  $encodedSignedMetadata = [System.Web.HttpUtility]::UrlEncode($signedMetadata)
       $fingerprint = Get-CinegyMachineFingerprint -UseTaggedHostname $UseTaggedHostname
 	  $encodedfingerprint = [System.Web.HttpUtility]::UrlEncode($fingerprint)
