@@ -66,7 +66,7 @@ resource "aws_instance" "vm" {
   ami                  = data.aws_ami.latest_ami.id
   key_name             = "terraform-key-${var.app_name}-${var.environment_name}"
   instance_type        = var.instance_type
-  iam_instance_profile = var.instance_profile_name
+  iam_instance_profile = var.instance_profile
   subnet_id            = var.instance_subnet //element(tolist(data.aws_subnet_ids.filtered_subnets.ids),0)
   get_password_data    = true
   tenancy              = var.tenancy
