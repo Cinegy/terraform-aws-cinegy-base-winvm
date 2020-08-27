@@ -36,7 +36,7 @@ data "aws_ami" "latest_ami" {
 }
 
 resource "aws_ssm_association" "domain_ssm" {
-  name        = var.directory_service_default_doc_name
+  name        = var.ad_join_doc_name
   instance_id = aws_instance.vm.id
 }
 
