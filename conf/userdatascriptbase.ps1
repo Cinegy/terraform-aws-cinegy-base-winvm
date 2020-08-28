@@ -22,7 +22,7 @@ function RenameHost(){
 
 function Install-CinegyPowershellModules(){
 	#define Cinegy Install Modules version
-	$installModulesVersion = "0.0.2"
+	$installModulesVersion = "0.0.3"
     $rootPath = $env:TEMP 
 
 	#download binaries and unzip
@@ -43,7 +43,7 @@ function Install-CinegyPowershellModules(){
 	Write-Output "Unpacking Cinegy Installation Powershell Module to $moduleInstallPath"
 	
 	Write-Host "Expanding bundle $downloadPath"
-	Expand-Archive -Path $downloadPath -DestinationPath $moduleInstallPath
+	Expand-Archive -Path $downloadPath -DestinationPath $moduleInstallPath -Force
 	
 	#import the module, ready for use
 	Import-Module $Env:CINEGY_INSTALL_MODULE_PATH\Cinegy.InstallModule.dll	
