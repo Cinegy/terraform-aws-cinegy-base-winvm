@@ -22,12 +22,12 @@ function RenameHost(){
 
 function Install-CinegyPowershellModules(){
 	#define Cinegy Install Modules version
-	$installModulesVersion = "0.0.1"
+	$installModulesVersion = "0.0.2"
     $rootPath = $env:TEMP 
 
 	#download binaries and unzip
 	$client = New-Object System.Net.WebClient
-	$modulePackageUrl = "https://github.com/Cinegy/powershell-install-module/releases/download/v$installModulesVersion/cinegy-powershell-installmodule-v$installModulesVersion.zip"
+	$modulePackageUrl = "https://github.com/Cinegy/powershell-install-module/releases/download/v$installModulesVersion/cinegy-powershell-installmodule.zip"
 	$downloadPath = "$rootPath\cinegy-powershell-installmodule.zip"
 	Write-Output "Downloading Cinegy Installation Powershell Module from $modulePackageUrl to $downloadPath"
     	
