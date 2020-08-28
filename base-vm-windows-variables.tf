@@ -6,8 +6,14 @@ variable "instance_profile" {
   description = "Name of the EC2 instance profile to associate with the VM"
 }
 
+variable "join_ad" {
+  description = "Flag to indicate if the VM should be joined to a domain (or not)"
+  default = false
+}
+
 variable "ad_join_doc_name" {
   description = "Name of the Directory Service SSM document to use for automatic domain integration"
+  default = ""
 }
 
 variable "instance_subnet" {

@@ -36,6 +36,7 @@ data "aws_ami" "latest_ami" {
 }
 
 resource "aws_ssm_association" "domain_ssm" {
+  count = var.join_ad ? 1 : 0
   name        = var.ad_join_doc_name
   instance_id = aws_instance.vm.id
 }
