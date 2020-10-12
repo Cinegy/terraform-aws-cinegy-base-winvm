@@ -85,6 +85,11 @@ variable "create_external_dns_reference" {
   default     = false
 }
 
+variable "route53_zone_name" {
+  description = "Name of Route53 zone for use in creating external DNS entries"
+  default = ""
+}
+
 variable "user_data_script_extension" {
   description = "Extended element to attach to core user data script. Default installs Cinegy Powershell Modules and renames host to match metadata name tag."
   default     = <<EOF

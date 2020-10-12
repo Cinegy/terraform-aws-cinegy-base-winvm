@@ -97,13 +97,16 @@ resource "aws_instance" "vm" {
   }
 }
 
-/*
+data "aws_route53_zone" "dns_registration" {
+  name         = var.route53_zone_name
+  private_zone = true
+}
+
 resource "aws_route53_record" "vm" {
   count   = var.create_external_dns_reference == true ? 1 : 0
-  zone_id = var.shared_route53_zone_id
+  zone_id = data.aws_route53_zone.dns_registration.zone_id
   name    = "${lower(var.host_name_prefix)}-${lower(var.environment_name)}.${var.shared_route53_zone_suffix}"
   type    = "A"
   ttl     = "60"
   records = [aws_instance.vm.public_ip]
 }
-*/
