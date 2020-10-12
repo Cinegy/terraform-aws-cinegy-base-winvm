@@ -98,6 +98,7 @@ resource "aws_instance" "vm" {
 }
 
 data "aws_route53_zone" "dns_registration" {
+  count   = var.create_external_dns_reference == true ? 1 : 0
   name         = var.route53_zone_name
 }
 
