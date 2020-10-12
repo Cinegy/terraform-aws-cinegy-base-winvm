@@ -99,12 +99,12 @@ resource "aws_instance" "vm" {
 
 data "aws_route53_zone" "dns_registration" {
   count   = var.create_external_dns_reference == true ? 1 : 0
-  name         = var.route53_zone_name
+  name    = var.route53_zone_name
 }
 
 resource "aws_route53_record" "vm" {
   count   = var.create_external_dns_reference == true ? 1 : 0
-  zone_id = data.aws_route53_zone.dns_registration.zone_id
+  zone_id = data.aws_route53_zone.dns_registration.*.zone_id
   name    = "${lower(var.host_name_prefix)}-${lower(var.environment_name)}"
   type    = "A"
   ttl     = "60"
