@@ -99,7 +99,6 @@ resource "aws_instance" "vm" {
 
 data "aws_route53_zone" "dns_registration" {
   name         = var.route53_zone_name
-  private_zone = true
 }
 
 resource "aws_route53_record" "vm" {
