@@ -49,7 +49,7 @@ resource "aws_ebs_volume" "data_volume" {
   tags = {
     Name      = "${var.host_name_prefix}-${upper(var.environment_name)}-DATAVOL"
     Env       = var.environment_name
-    App       = "${var.app_name}"
+    App       = var.app_name
     CUSTOMER  = var.customer_tag
     Terraform = true
   }
@@ -87,7 +87,7 @@ resource "aws_instance" "vm" {
     Name      = "${var.host_description} - ${upper(var.environment_name)}"
     Hostname  = "${var.host_name_prefix}-${upper(var.environment_name)}"
     Env       = var.environment_name
-    App       = "${var.app_name}"
+    App       = var.app_name
     CUSTOMER  = var.customer_tag
     Terraform = true
   }

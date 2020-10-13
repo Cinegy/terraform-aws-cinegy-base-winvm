@@ -52,7 +52,6 @@ function Install-CinegyPowershellModules(){
 function Install-DefaultPackages(){
 	Install-Product -PackageName Thirdparty-VCRuntimes-v150 -VersionTag prod
 	Install-Product -PackageName Thirdparty-7Zip-Stable -VersionTag prod
-	Install-Product -PackageName Thirdparty-MetricBeat-v6.x -VersionTag dev
 	Install-Product -PackageName Thirdparty-NotepadPlusPlus-v7.x -VersionTag prod
 	Install-Product -PackageName Thirdparty-Firefox-Stable -VersionTag prod
 }
