@@ -61,6 +61,7 @@ resource "aws_volume_attachment" "data_volume" {
 
   volume_id   = element(aws_ebs_volume.data_volume.*.id, count.index)
   instance_id = aws_instance.vm.id
+  force_detach = true
 }
 
 resource "aws_instance" "vm" {
