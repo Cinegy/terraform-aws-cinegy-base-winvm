@@ -98,16 +98,30 @@ resource "aws_instance" "vm" {
   }
 }
 
-data "aws_route53_zone" "dns_registration" {
+data "aws_route53_zone" "public_dns_registration" {
   count   = var.create_external_dns_reference == true ? 1 : 0
   name    = var.route53_zone_name
 }
 
-resource "aws_route53_record" "vm" {
+resource "aws_route53_record" "vm_public" {
   count   = var.create_external_dns_reference == true ? 1 : 0
-  zone_id = data.aws_route53_zone.dns_registration.*.zone_id[0]
+  zone_id = data.aws_route53_zone.public_dns_registration.*.zone_id[0]
   name    = "${lower(var.host_name_prefix)}-${lower(var.environment_name)}"
   type    = "A"
   ttl     = "60"
   records = [aws_instance.vm.public_ip]
+}
+
+data "aws_route53_zone" "private_dns_registration" {
+  count   = var.create_internal_dns_reference == true ? 1 : 0
+  name    = var.internal_route53_zone_name
+}
+
+resource "aws_route53_record" "vm_private" {
+  count   = var.create_external_dns_reference == true ? 1 : 0
+  zone_id = data.aws_route53_zone.private_dns_registration.*.zone_id[0]
+  name    = "${lower(var.host_name_prefix)}-${lower(var.environment_name)}"
+  type    = "A"
+  ttl     = "20"
+  records = [aws_instance.vm.private_ip]
 }

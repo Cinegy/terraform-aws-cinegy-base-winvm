@@ -85,8 +85,18 @@ variable "create_external_dns_reference" {
   default     = false
 }
 
+variable "create_internal_dns_reference" {
+  description = "Create a DNS entry for the private IP of the VM inside the internal Route53 zone (default false)"
+  default     = false
+}
+
 variable "route53_zone_name" {
   description = "Name of Route53 zone for use in creating external DNS entries"
+  default = ""
+}
+
+variable "internal_route53_zone_name" {
+  description = "Name of Route53 zone for use in creating internal DNS entries"
   default = ""
 }
 
