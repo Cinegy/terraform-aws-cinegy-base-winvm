@@ -118,7 +118,7 @@ data "aws_route53_zone" "private_dns_registration" {
 }
 
 resource "aws_route53_record" "vm_private" {
-  count   = var.create_external_dns_reference == true ? 1 : 0
+  count   = var.create_internal_dns_reference == true ? 1 : 0
   zone_id = data.aws_route53_zone.private_dns_registration.*.zone_id[0]
   name    = "${lower(var.host_name_prefix)}-${lower(var.environment_name)}"
   type    = "A"
