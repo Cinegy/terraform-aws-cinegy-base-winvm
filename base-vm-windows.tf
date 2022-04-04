@@ -40,9 +40,8 @@ resource "aws_ssm_association" "domain_ssm" {
   name        = var.ad_join_doc_name
   targets {
     key = "InstanceIds"
-    value = [aws_instance.vm.id]
+    values = [aws_instance.vm.id]
   }
-  #instance_id = aws_instance.vm.id
 }
 
 resource "aws_ebs_volume" "data_volume" {
